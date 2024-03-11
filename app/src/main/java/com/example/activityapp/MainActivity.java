@@ -1,69 +1,73 @@
 package com.example.activityapp;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.core.view.WindowCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.activityapp.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
-
 public class MainActivity extends AppCompatActivity {
+    private int count = 0;
+    private String sourceActivity = null;
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    TextView thread_counter;
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        thread_counter = (TextView) findViewById(R.id.tv_thread_counter);
 
-//        setSupportActionBar(binding.toolbar);
+        Button btn_activity_b = findViewById(R.id.btn_activity_b);
+        Button btn_activity_c = findViewById(R.id.btn_activity_c);
+        Button dialog_btn = findViewById(R.id.btn_dialog);
+        Button btn_exit_app = findViewById(R.id.btn_exit);
 
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        thread_counter.setText(String.format("Thread Counter: %d", count));
 
+        btn_activity_b.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FirstActivity.class);
+            sourceActivity = "ActivityB";
+            startActivity(intent);
+        });
 
+        btn_activity_c.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+            sourceActivity = "ActivityC";
+            startActivity(intent);
+        });
+
+        dialog_btn.setOnClickListener(v -> openDialog());
+
+        btn_exit_app.setOnClickListener(v -> finishAffinity());
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    protected void onRestart() {
+        super.onRestart();
+
+        if ("ActivityB".equals(sourceActivity)) {
+            count += 5;
+        } else if ("ActivityC".equals(sourceActivity)) {
+            count += 10;
+        }
+
+        thread_counter.setText(String.format("Thread Counter: %d", count));
+        sourceActivity = null;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-
-        return super.onOptionsItemSelected(item);
+    private void openDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Sample Dialog");
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
 }

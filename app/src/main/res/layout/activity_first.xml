@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    android:id="@+id/main"
+    tools:context=".FirstActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,27 +15,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp">
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:text="@string/activityC"
+                android:text="@string/activityB"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/activityCText" />
-
-            <Button
-                android:id="@+id/button_second"
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="@string/finishC" />
+                android:text="@string/activityBText" />
+
+            <Button
+                android:id="@+id/back_btn_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                android:text="@string/finishB" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

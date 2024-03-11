@@ -35,13 +35,14 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btn_activity_b"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_marginRight="10dp"
                     android:text="@string/startActivityB"></Button>
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_activity_c"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:text="@string/startActivityC" />
@@ -49,7 +50,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btn_dialog"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
@@ -57,7 +58,7 @@
                 android:text="@string/dialog" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_thread_counter"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="50dp"
@@ -73,7 +74,7 @@
                 android:background="?android:attr/listDivider" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btn_exit"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
